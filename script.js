@@ -42,6 +42,10 @@ function multiply(array) {
 
 function divide(array) {
     equation = display.innerText.split("/")
+    if (equation[1] == 0) {
+        alert("Come on man :(")
+        return "0"
+    }
     answer = equation[0] / equation[1]
     return answer
 };
