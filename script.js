@@ -24,7 +24,7 @@ function updateDisplay(num) {
 
 function sum(array) {
     equation = display.innerText.split("+")
-    answer = parseFloat(equation[0]) + parseFloat(equation[1])
+    answer = ((parseInt(equation[0] * 10000) + parseInt(equation[1]*10000))/10000)
     return answer
 };
 
