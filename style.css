@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    margin: 0;
+    height: 99vh;
+    justify-content: center;
+    align-items: center;
+    font-family:'Times New Roman', Times, serif;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 45vw;
+    background-color: lightslategrey;
+}
+
+.display {
+    width: 40vw;
+    height: 20vh;
+    background-color: whitesmoke;
+    margin-bottom: 5vh;
+    font-size: 15vh;
+    overflow-x: auto;
+}
+
+button {
+    width: 10vw;
+    height: 5vh;
+}
