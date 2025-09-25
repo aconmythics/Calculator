@@ -27,8 +27,6 @@ function updateDisplay(num) {
 
 
 function checkDecimal() {
-    let pointCount = 0
-    let operatorCount = 0
     array = display.innerText.split(/[\+\-\x\/]/)
     lastNum = array[array.length-1]
     console.log(lastNum)
