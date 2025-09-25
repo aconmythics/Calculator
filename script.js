@@ -22,26 +22,56 @@ function updateDisplay(num) {
     };
 };
 
+function checkSyntax(array) {
+    firstItem = array.shift()
+    if (firstItem == "+" | firstItem == "-" | firstItem == "x" | firstItem == "/") {
+        return false
+    }
+    else {
+        return true
+    }
+};
+
 function sum(array) {
-    equation = display.innerText.split("+")
-    answer = ((parseInt(equation[0] * 10000) + parseInt(equation[1]*10000))/10000)
+    if (checkSyntax(array) == true) {
+        equation = display.innerText.split("+")
+    }
+    else {
+        equation = array.join("").split("+")
+    }
+    answer = parseFloat(equation[0]) + parseFloat(equation[1])
     return answer
 };
 
 function subtract(array) {
-    equation = display.innerText.split("-")
+    if (checkSyntax(array) == true) {
+        equation = display.innerText.split("-")
+    }
+    else {
+        equation = array.join("").split("-")
+    }
     answer = equation[0] - equation[1]
     return answer
 };
 
 function multiply(array) {
-    equation = display.innerText.split("x")
+    if (checkSyntax(array) == true) {
+        equation = display.innerText.split("x")
+    }
+    else {
+        equation = array.join("").split("x")
+    }
     answer = equation[0] * equation[1]
     return answer
 };
 
 function divide(array) {
-    equation = display.innerText.split("/")
+    if (checkSyntax(array) == true) {
+        equation = display.innerText.split("/")
+    }
+    else {
+        equation = array.join("").split("/")
+    }
     if (equation[1] == 0) {
         alert("Come on man :(")
         return "0"
@@ -64,14 +94,15 @@ function checkForOperator() {
 let operatorCalls = 0
 function checkOperator(operator) {
     if (checkForOperator() == false) {
-        operatorCalls+=1
         if (operatorCalls > 1) {
             calculate()
             display.innerText += operator
             operatorCalls = 1
         }
-        else {
+        else if (display.innerText != "") {
             display.innerText += operator
+            operatorCalls+=1
+            console.log(display.innerText)
         };
     }
     else {
