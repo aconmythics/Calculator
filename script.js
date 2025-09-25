@@ -7,6 +7,9 @@ buttons.forEach(button => {
     else if (button.innerText == "+" | button.innerText == "-" | button.innerText == "x" | button.innerText == "/") {
         button.addEventListener("click", (e) => checkOperator(e.target.innerText))
     }
+    else if (button.innerText == ".") {
+        button.addEventListener("click", checkDecimal)
+    }
     else {
         button.addEventListener("click", (e) => updateDisplay(e.target.innerText))
     }
@@ -22,56 +25,44 @@ function updateDisplay(num) {
     };
 };
 
-function checkSyntax(array) {
-    firstItem = array.shift()
-    if (firstItem == "+" | firstItem == "-" | firstItem == "x" | firstItem == "/") {
-        return false
+
+function checkDecimal() {
+    let pointCount = 0
+    let operatorCount = 0
+    array = display.innerText.split(/[\+\-\x\/]/)
+    lastNum = array[array.length-1]
+    console.log(lastNum)
+    if (lastNum == "") {
+        display.innerText += "0."
+    }
+    else if (lastNum.includes(".")) {
+        return
     }
     else {
-        return true
+        display.innerText += "."
     }
 };
 
-function sum(array) {
-    if (checkSyntax(array) == true) {
-        equation = display.innerText.split("+")
-    }
-    else {
-        equation = array.join("").split("+")
-    }
+function sum() {
+    equation = display.innerText.split("+")
     answer = parseFloat(equation[0]) + parseFloat(equation[1])
     return answer
 };
 
-function subtract(array) {
-    if (checkSyntax(array) == true) {
-        equation = display.innerText.split("-")
-    }
-    else {
-        equation = array.join("").split("-")
-    }
-    answer = equation[0] - equation[1]
+function subtract(array, sign) {
+    equation = array.join("").split("-")
+    answer = (equation[0] * sign) - equation[1]
     return answer
 };
 
-function multiply(array) {
-    if (checkSyntax(array) == true) {
-        equation = display.innerText.split("x")
-    }
-    else {
-        equation = array.join("").split("x")
-    }
+function multiply() {
+    equation = display.innerText.split("x")
     answer = equation[0] * equation[1]
     return answer
 };
 
-function divide(array) {
-    if (checkSyntax(array) == true) {
-        equation = display.innerText.split("/")
-    }
-    else {
-        equation = array.join("").split("/")
-    }
+function divide() {
+    equation = display.innerText.split("/")
     if (equation[1] == 0) {
         alert("Come on man :(")
         return "0"
@@ -83,7 +74,7 @@ function divide(array) {
 function checkForOperator() {
     array = display.innerText.split("")
     lastItem = array.slice(-1)
-    if (lastItem == "+" | lastItem == "-" | lastItem == "x" | lastItem == "/") {
+    if (lastItem == "+" | lastItem == "-" | lastItem == "x" | lastItem == "/" | lastItem == ".") {
         return true
     }
     else {
@@ -94,6 +85,7 @@ function checkForOperator() {
 let operatorCalls = 0
 function checkOperator(operator) {
     if (checkForOperator() == false) {
+        operatorCalls+=1;
         if (operatorCalls > 1) {
             calculate()
             display.innerText += operator
@@ -101,8 +93,6 @@ function checkOperator(operator) {
         }
         else if (display.innerText != "") {
             display.innerText += operator
-            operatorCalls+=1
-            console.log(display.innerText)
         };
     }
     else {
@@ -112,19 +102,24 @@ function checkOperator(operator) {
 
 
 function calculate() {
+    sign = 1
     array = display.innerText.split("")
+    if (array[0] == "-") {
+        sign = -1
+        array.shift()
+    }
     for (i of array) {
         if (i == "+") {
-            display.innerText = sum(array)
+            display.innerText = sum()
         }
         else if (i == "-") {
-            display.innerText = subtract(array)        
+            display.innerText = subtract(array, sign)        
         }
         else if (i == "x") {
-            display.innerText = multiply(array) 
+            display.innerText = multiply() 
         }
         else if(i == "/") {
-            display.innerText = divide(array) 
+            display.innerText = divide() 
         }
     }
 };
