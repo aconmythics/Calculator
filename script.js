@@ -72,7 +72,7 @@ function divide() {
 function checkForOperator() {
     array = display.innerText.split("")
     lastItem = array.slice(-1)
-    if (lastItem == "+" | lastItem == "-" | lastItem == "x" | lastItem == "/" | lastItem == ".") {
+    if (lastItem == "+" | lastItem == "-" | lastItem == "x" | lastItem == "/" | lastItem == "." | lastItem == "") {
         return true
     }
     else {
